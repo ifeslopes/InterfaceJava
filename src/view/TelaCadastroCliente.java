@@ -211,7 +211,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
 
-        JOptionPane.showConfirmDialog(null, "Nome: "+tfNome.getText()+" Sexo: "+jcSexo.getSelectedItem());
+        JOptionPane.showConfirmDialog(null, "Nome: "+tfNome.getText()+" Sexo: "+jcSexo.getSelectedItem().toString());
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
