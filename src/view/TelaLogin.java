@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /*
@@ -44,6 +45,12 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1.setText("Login");
 
         jLabel2.setText("Senha");
+
+        txtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtSenhaKeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -111,16 +118,46 @@ public class TelaLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public boolean checkLogin(String login, String senha){
+    return login.equals("Lopes") && senha.equals("123");
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        if (txtLogin.getText().equals("usuario") && txtSenha.getText().equals("1234")) {
+       /* if (txtLogin.getText().equals("usuario") && txtSenha.getText().equals("1234")) {
             JOptionPane.showMessageDialog(null, "Bem Vindo!");
 
         }else{
         
             JOptionPane.showMessageDialog(null, "Acesso Negado!!");
+        }*/
+       
+        if (this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))) {
+           
+            JOptionPane.showMessageDialog(null,"Bem vindo "+txtLogin.getText() );
+            
+        }else{
+        
+            JOptionPane.showMessageDialog(null,"Dados Invalidos "+txtLogin.getText() );
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSenhaKeyPressed
+        // TODO add your handling code here: 
+        
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        
+        if (this.checkLogin(txtLogin.getText(), new String(txtSenha.getPassword()))) {
+           
+            JOptionPane.showMessageDialog(null,"Bem vindo "+txtLogin.getText() );
+            
+        }else{
+        
+            JOptionPane.showMessageDialog(null,"Dados Invalidos "+txtLogin.getText() );
+        }
+        }
+    }//GEN-LAST:event_txtSenhaKeyPressed
 
     /**
      * @param args the command line arguments
