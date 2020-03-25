@@ -7,6 +7,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,6 +20,10 @@ public class ViewJTable extends javax.swing.JFrame {
      */
     public ViewJTable() {
         initComponents();
+        
+        DefaultTableModel modelo = (DefaultTableModel) JTproduto.getModel();
+        JTproduto.setRowSorter(new TableRowSorter(modelo));
+        
     }
 
     /**
@@ -39,6 +44,7 @@ public class ViewJTable extends javax.swing.JFrame {
         txtPreco = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTproduto = new javax.swing.JTable();
@@ -63,6 +69,13 @@ public class ViewJTable extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Atualiza");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -92,6 +105,8 @@ public class ViewJTable extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
+                .addGap(29, 29, 29)
+                .addComponent(jButton3)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -110,7 +125,8 @@ public class ViewJTable extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)))
         );
 
         JTproduto.setModel(new javax.swing.table.DefaultTableModel(
@@ -120,7 +136,25 @@ public class ViewJTable extends javax.swing.JFrame {
             new String [] {
                 "DESCRIÇÃO", "QTD", "PREÇO"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        JTproduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTprodutoMouseClicked(evt);
+            }
+        });
+        JTproduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTprodutoKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTproduto);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -180,6 +214,39 @@ public class ViewJTable extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void JTprodutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTprodutoMouseClicked
+        // TODO add your handling code here:
+        if (JTproduto.getSelectedRow()!= -1) {
+            
+            txtDesc.setText(JTproduto.getValueAt(JTproduto.getSelectedRow(), 0).toString());
+            txtQtd.setText(JTproduto.getValueAt(JTproduto.getSelectedRow(), 1).toString());
+            txtPreco.setText(JTproduto.getValueAt(JTproduto.getSelectedRow(), 2).toString());
+        }
+    }//GEN-LAST:event_JTprodutoMouseClicked
+
+    private void JTprodutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTprodutoKeyReleased
+        // TODO add your handling code here:
+        
+        if (JTproduto.getSelectedRow()!= -1) {
+            
+            txtDesc.setText(JTproduto.getValueAt(JTproduto.getSelectedRow(), 0).toString());
+            txtQtd.setText(JTproduto.getValueAt(JTproduto.getSelectedRow(), 1).toString());
+            txtPreco.setText(JTproduto.getValueAt(JTproduto.getSelectedRow(), 2).toString());
+        }
+    }//GEN-LAST:event_JTprodutoKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        if (JTproduto.getSelectedRow()!= -1) {
+            
+            JTproduto.setValueAt(txtDesc.getText(), JTproduto.getSelectedRow(), 0);
+            JTproduto.setValueAt(txtQtd.getText(), JTproduto.getSelectedRow(), 1);
+            JTproduto.setValueAt(txtPreco.getText(), JTproduto.getSelectedRow(), 2);
+            
+      
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,6 +286,7 @@ public class ViewJTable extends javax.swing.JFrame {
     private javax.swing.JTable JTproduto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
